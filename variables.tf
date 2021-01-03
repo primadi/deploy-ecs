@@ -1,18 +1,11 @@
 variable "region" {}
+variable "vpc_name_map" {}
+variable "vpc_cidr" {}
+variable "public_subnet_cidr" {}
+variable "private_subnet_cidr" {}
+variable "eip_addr" {}
 
 locals {
-  env = terraform.workspaces
-  worker-node = {
-    dev     = 1
-    staging = 1
-    hotfix  = 1
-    prod    = 3
-  }
-
-  instance-type = {
-    dev     = "t3a.medium"
-    staging = "t3a.medium"
-    hotfix  = "t3a.medium"
-    prod    = "t3a.2xlarge"
-  }
+  vpc_name = var.vpc_name_map[terraform.workspace]
+  az_a     = "${var.region}a"
 }
